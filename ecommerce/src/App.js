@@ -1,10 +1,23 @@
-import "./categories.style.scss"
-import Directory from "./components/directory/directory";
+
+import { Route, Routes } from "react-router-dom";
+import Home from "./routes/home";
+import Navigation from "./routes/NavBar/nav-bar";
+
+const Shop = () => { 
+  return (
+    <h1>Shop page</h1>
+  )
+}
 
 const App = () => {
 
   return (
-    <Directory />
+    <Routes>
+      <Route path='/' element={ <Navigation />}>
+        <Route index element={<Home />} />
+        <Route path='shop' element={<Shop />} />
+      </Route>
+    </Routes>
   );
 }
 
