@@ -47,8 +47,6 @@ const SignUpForm = () => {
     } catch (error) {
       if(error.code === 'auth/email-already-in-use'){
         alert('Cannot create user, email already in use')
-      } else if (error.code === 'auth/weak-password') {
-        alert('Choose a Stronger Password')
       } else{
         console.log('USER CREATION', error)
       }
