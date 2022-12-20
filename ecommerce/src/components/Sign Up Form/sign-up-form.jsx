@@ -6,6 +6,7 @@ import FormInput from "../Form Input/form-input"
 import './sign-up-form.scss'
 import Button from "../Button/button.component"
 
+
 const defaultFormFields = {
   displayName: '',
   email: '',
@@ -17,6 +18,7 @@ const SignUpForm = () => {
 
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { displayName, email, password, confirmPassword }= formFields
+
 
   const handleChange = (e) => { 
     const { name, value } = e.target
@@ -38,10 +40,8 @@ const SignUpForm = () => {
     }
 
     try {
-
       const { user } = await authWithEmailAndPassword(email, password)
       await createUserDocumentFromAuth(user, { displayName })
-
       resetFormFields()
 
     } catch (error) {

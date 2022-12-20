@@ -1,6 +1,16 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { 
+  getAuth, 
+  signInWithRedirect, 
+  signInWithPopup, 
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+} from 'firebase/auth'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
+import { Navigate } from 'react-router-dom';
 
 
 const firebaseConfig = {
@@ -34,10 +44,8 @@ export const createUserDocumentFromAuth = async(userAuth, additionalInformation 
 
   const userDocRef = doc(db, 'users', userAuth.uid)
 
-  // console.log(userDocRef)
-
   const userSnapshot = await getDoc(userDocRef)
-  // console.log(userSnapshot)
+
 
   // if user data does not exist 
   // create / set the document with the data from userAuth in my collection
@@ -73,4 +81,13 @@ export const SignInUser = async(email, password) => {
   if(!email || !password) return
 
   return await signInWithEmailAndPassword(auth, email, password)
+}
+
+// SINGING USER OUT 
+export const signOutUser = async() => {
+  signOut(auth)
+}
+
+export const onAuthStateChangedListener = (callback) => {
+  onAuthStateChanged(auth, callback)
 }
