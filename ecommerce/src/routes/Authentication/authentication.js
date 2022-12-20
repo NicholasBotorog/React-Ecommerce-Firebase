@@ -2,14 +2,12 @@
 // import { useEffect } from 'react';
 // import { getRedirectResult } from 'firebase/auth';
 
-import { signInWithGooglePopup, createUserDocumentFromAuth, 
-  // signInWithGoogleRedirect,
-  // auth 
-} 
-  from "../../utils/firebase/firebase.utils"
+// import { signInWithGooglePopup, createUserDocumentFromAuth, 
+//   // signInWithGoogleRedirect,
+//   // auth 
+// } from "../../utils/firebase/firebase.utils"
 import SignUpForm from '../../components/Sign Up Form/sign-up-form';
 import SignInForm from "../../components/Sign In Form/sign-in-form";
-import Button from '../../components/Button/button.component';
 
 const Authentication = () => {
   

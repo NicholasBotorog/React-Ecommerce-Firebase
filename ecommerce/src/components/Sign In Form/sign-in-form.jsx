@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { authWithEmailAndPassword, createUserDocumentFromAuth, signInWithGooglePopup, SignInUser } from "../../utils/firebase/firebase.utils"
-
-import FormInput from "../Form Input/form-input"
+import { createUserDocumentFromAuth, signInWithGooglePopup, SignInUser } from "../../utils/firebase/firebase.utils"
 
 import './sign-in-form.scss'
+import FormInput from "../Form Input/form-input"
 import Button from "../Button/button.component"
+
 
 const defaultFormFields = {
   email: '',
@@ -15,15 +15,14 @@ const SignInForm = () => {
 
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password }= formFields
+  
+  const resetFormFields = () => { 
+    setFormFields(defaultFormFields)
+  }
 
   const handleChange = (e) => { 
     const { name, value } = e.target
     setFormFields({...formFields, [name]: value})
-  }
-
-  // RESETING THE FORM FIELDS AFTER THE USER IS REGISTERED 
-  const resetFormFields = () => { 
-    setFormFields(defaultFormFields)
   }
 
   // HANDLES SUBMIT FOR CREATING NEW USER 
@@ -32,6 +31,7 @@ const SignInForm = () => {
     try {
       const response = await SignInUser(email, password)
       console.log(response)
+      resetFormFields()
     } catch (error) {
       console.log(error)
     }
@@ -53,7 +53,7 @@ const SignInForm = () => {
       
         <div className="buttons-container">
           <Button type="submit">Sign In</Button>
-          <Button buttonType={'google'} onClick={SignInWithGoogle}>Google Sign In</Button>
+          <Button type="button" buttonType='google' onClick={SignInWithGoogle}>Google Sign In</Button>
         </div>
       </form>
     </div>

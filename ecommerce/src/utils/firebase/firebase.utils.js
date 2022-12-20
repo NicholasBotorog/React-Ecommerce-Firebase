@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
+import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
 
 
@@ -13,6 +13,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+// eslint-disable-next-line
 const firebaseApp = initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider()
@@ -37,7 +38,7 @@ export const createUserDocumentFromAuth = async(userAuth, additionalInformation 
   // console.log(userDocRef)
 
   const userSnapshot = await getDoc(userDocRef)
-  console.log(userSnapshot)
+  // console.log(userSnapshot)
 
   // if user data does not exist 
   // create / set the document with the data from userAuth in my collection
