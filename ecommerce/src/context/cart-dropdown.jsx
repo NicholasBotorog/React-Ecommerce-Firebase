@@ -35,6 +35,11 @@ const removeCartItem = (cartItems, productToRemove) => {
   })
 } 
 
+
+// Delete the whole item from the checkout page. 
+const clearCartItem = (cartItems, productToClear) => cartItems.filter((item) => item.id !== productToClear.id)
+
+
 export const CartContex = createContext({
   cartOpen: false,
   setCartOpen: () => {},
@@ -42,18 +47,28 @@ export const CartContex = createContext({
   addItemToCart: () => {},
   cartCount: 0,
   removeItemFromCart: () => {},
+  clearItemFromCart: () => {},
+  cartTotal: 0,
 })
 
 export const CartProvider = ({ children }) => { 
   const [cartOpen, setCartOpen] = useState(false)
   const [cartItems, setCartItems] = useState([])
   const [cartCount, setCartCount] = useState(0)
+  const [cartTotal, setCartTotal] = useState(0)
 
   useEffect(() => { 
     const newCartCount = cartItems.reduce((total, item) => total + item.quantity, 0)
     setCartCount(newCartCount)
     console.log(cartItems)
   }, [cartItems])
+
+
+  useEffect(() => { 
+    const newCartTotal = cartItems.reduce((total, item) => total + item.quantity * item.price, 0)
+    setCartTotal(newCartTotal)
+  }, [cartItems])
+
 
   const addItemToCart = (productToAdd) => { 
     setCartItems(addCartItem(cartItems, productToAdd))
@@ -63,7 +78,20 @@ export const CartProvider = ({ children }) => {
     setCartItems(removeCartItem(cartItems, productToRemove))
   }
 
-  const value = { cartOpen, setCartOpen, addItemToCart, cartItems, cartCount, removeItemFromCart}
+  const clearItemFromCart = (productToClear) => {
+    setCartItems(clearCartItem(cartItems, productToClear))
+  }
+
+  const value = { 
+    cartOpen, 
+    setCartOpen, 
+    addItemToCart, 
+    cartItems, 
+    cartCount, 
+    removeItemFromCart, 
+    clearItemFromCart, 
+    cartTotal
+  }
   
 
   return <CartContex.Provider value = {value}> {children} </CartContex.Provider>

@@ -1,36 +1,40 @@
 import './check-out.scss'
 import { useContext } from 'react'
 import { CartContex } from '../../context/cart-dropdown'
-
+import CheckoutItem from '../../components/Checkout Item/checkout-item'
 
 const CheckOut = () => { 
 
-  const { cartItems, addItemToCart, removeItemFromCart } = useContext(CartContex) 
+  const { cartItems, cartTotal } = useContext(CartContex) 
   return (
-    <div> 
-      <div className='cart-items'>
-      { cartItems.map((item) => { 
-        const {id, name, quantity} = item
-        return(
-          <div key={id}>
-            <h2>{name}</h2>
-            <h2>{quantity}</h2>
-            <br />
-            <span onClick={() => addItemToCart(item)}> INCREMENT </span>
-            <br />
-            <span onClick={() => removeItemFromCart(item)}> DECREMENT </span>
-          </div>
-        )
-      })}
-      </div>
+    <div className='checkout-container'>
+      <div className='checkout-header'>
+        <div className='header-block'>
+          <span>Product</span>
+        </div>
 
-      <div>
-        <h1>Total:</h1>
-        <span>{cartItems.reduce((price, item) => {
-          const totalItem = price * item.quantity
-          return totalItem
-          }, 0)}</span>
-      </div>
+        <div className='header-block'>
+          <span>Description</span>
+        </div>
+
+        <div className='header-block'>
+          <span>Quantity</span>
+        </div>
+
+        <div className='header-block'>
+          <span>Price</span>
+        </div>
+
+        <div className='header-block'>
+          <span>Remove</span>
+        </div>
+      </div> 
+
+    { cartItems.map((item) => (
+        <CheckoutItem key = {item.id} item = {item} />
+    ))}
+
+      <span className='total'>Total: ${cartTotal}</span>
     </div>
   )
 }
