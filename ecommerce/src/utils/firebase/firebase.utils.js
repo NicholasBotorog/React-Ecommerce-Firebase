@@ -9,8 +9,14 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth'
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
-import { Navigate } from 'react-router-dom';
+
+import { getFirestore, doc, getDoc, setDoc,
+  collection,
+  writeBatch,
+  query,
+  getDocs,
+} from 'firebase/firestore'
+
 
 
 const firebaseConfig = {
@@ -36,6 +42,40 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider)
 
 export const db = getFirestore()
+
+
+
+// Uploading the local database to Firebase
+export const addCollectionAndDocument = async (collectionKey, objectToAdd) => { 
+  const collectionRef = collection(db, collectionKey)
+  const batch = writeBatch(db)
+
+  objectToAdd.forEach((object) => { 
+    const docRef = doc(collectionRef, object.title.toLowerCase())
+    batch.set(docRef, object)
+  })
+
+  await batch.commit()
+  // console.log('done')
+}
+
+
+
+// Retriving the Database from Firebase to use it on our App
+export const getCategoriesAndDocuments = async() => { 
+  const collectionRef = collection(db, 'categories')
+  const q = query(collectionRef)
+
+  const querySnapshot = await getDocs(q)
+  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => { 
+    const { title, items } = docSnapshot.data()
+    acc[title.toLowerCase()] = items
+    return acc
+  }, {})
+
+  return categoryMap
+}
+
 
 
 // Auth with Google Account
