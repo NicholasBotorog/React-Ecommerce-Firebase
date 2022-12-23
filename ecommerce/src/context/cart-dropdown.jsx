@@ -90,7 +90,7 @@ export const CartProvider = ({ children }) => {
     cartCount, 
     removeItemFromCart, 
     clearItemFromCart, 
-    cartTotal
+    cartTotal,
   }
   
 
