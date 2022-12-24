@@ -13,7 +13,7 @@ export const CategoriesProvider = ({ children }) => {
 
 
   // This need to run only once and then delete it.
-  // This is creating the Categories Database inside the Firestore 
+  // This is creating the Categories Database inside the Firestore.
   // After the collection was created, you dont need the useEffect anymore, because it will keep overwriting your database.
 
   // useEffect(() => { 
@@ -22,6 +22,7 @@ export const CategoriesProvider = ({ children }) => {
 
 
   // After successfully uploading our local data to Firestore, we want to use the data from Firestore 
+  // Getting the data from Firebase.
   useEffect(() => { 
     const getCategoriesMap = async() => { 
       const categoryMap = await getCategoriesAndDocuments()
