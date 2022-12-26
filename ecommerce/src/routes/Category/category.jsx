@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useContext, useState, useEffect, Fragment } from 'react'
+
 import { CategoriesContext } from '../../context/categories'
 
 import './category.scss'
