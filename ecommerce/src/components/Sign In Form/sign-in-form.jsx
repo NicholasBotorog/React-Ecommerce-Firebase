@@ -1,10 +1,14 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { createUserDocumentFromAuth, signInWithGooglePopup, SignInUser} from "../../utils/firebase/firebase.utils"
+import { 
+  createUserDocumentFromAuth,
+  signInWithGooglePopup, 
+  SignInUser
+} from "../../utils/firebase/firebase.utils"
 
 import './sign-in-form.scss'
 import FormInput from "../Form Input/form-input"
-import Button from "../Button/button.component"
+import Button, { BUTTON_TYPE_CLASSES } from "../Button/button.component"
 
 
 const defaultFormFields = {
@@ -65,7 +69,7 @@ const SignInForm = () => {
       
         <div className='buttons-container'>
           <Button type='submit'>Sign In</Button>
-          <Button type='button' buttonType='google' onClick={SignInWithGoogle}>
+          <Button type='button' buttonType={BUTTON_TYPE_CLASSES.google} onClick={SignInWithGoogle}>
             Google Sign In
           </Button>
         </div>
